@@ -28,6 +28,12 @@ add_label_box <- function(prev_box,
 
   just <- match.arg(just)
 
+  dots <- list(...)
+  if("name" %in% names(dots)){
+    warning("`parameter name was provided but will be ignored.")
+    dots$name <- NULL
+  }
+
   if (length(txt) > 1 & is.null(names(txt))) {
     stop("txt must be a named vector.")
   }
@@ -50,7 +56,7 @@ add_label_box <- function(prev_box,
   args_list$box_fn <- roundrectGrob
   args_list$name <- "label"
 
-  args_list <- modifyList(args_list, list(...))
+  args_list <- modifyList(args_list, dots)
   
   # Node type of each
   nodes_layout <- attr(prev_box, "nodes.list")
